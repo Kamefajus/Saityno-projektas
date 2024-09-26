@@ -33,3 +33,7 @@ Technologijų aprašymas:
 •	JWT bus naudojamas vartotojo autentifikacijai po prisijungimo. Tai leidžia saugiai ir efektyviai tvarkyti prisijungimo sesijas.
 
 •	React bus naudojamas dinamiškam ir interaktyviam vartotojo sąsajos kūrimui. React leidžia kurti komponentų struktūras, kurios efektyviai reaguoja į vartotojo veiksmus.
+
+• Back-end kūrybai bus naudojama .NET (C#)
+
+• Duomenų bazė bus kuriama su MySql
