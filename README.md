@@ -12,6 +12,7 @@ Sistemos tikslas – sukurti forumą, skirtą filmų gerbėjams susirinkti ir ap
 --------------------------------------------
 
 Temų kūrimas:
+
 •	Vartotojai gali kurti naujas diskusijų temas apie filmus ar teorijas.
 
 •	Temas gali redaguoti kūrėjas, trinti netinkamas žinutes.
@@ -19,6 +20,7 @@ Temų kūrimas:
 --------------------------------------------
 
   Komentarų ir atsakymų sistema:
+  
 •	Kiekvienoje temoje vartotojai gali atsakyti į kitų komentarus ir dalintis savo mintimis apie teorijas.
   Balsavimo ir reitingavimo sistema:
   
@@ -27,6 +29,7 @@ Temų kūrimas:
 --------------------------------------------
 
 Technologijų aprašymas:
+
 •	JWT bus naudojamas vartotojo autentifikacijai po prisijungimo. Tai leidžia saugiai ir efektyviai tvarkyti prisijungimo sesijas.
 
 •	React bus naudojamas dinamiškam ir interaktyviam vartotojo sąsajos kūrimui. React leidžia kurti komponentų struktūras, kurios efektyviai reaguoja į vartotojo veiksmus.
