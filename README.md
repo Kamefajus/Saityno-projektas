@@ -2,7 +2,7 @@
 
 Taikomosios srities objektai:
 
-Filmas -> Komentatorius -> Filmo žanras
+Filmas -> Teorija -> Komentarai
 
 --------------------------------------------
 Sistemos paskirtis:
