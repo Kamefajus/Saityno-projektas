@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Projektas “Film Analysis Lounge”
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Taikomosios srities objektai:
 
-## Available Scripts
+Filmas -> Teorija -> Komentarai
 
-In the project directory, you can run:
+--------------------------------------------
+Sistemos paskirtis:
 
-### `npm start`
+Sistemos tikslas – sukurti forumą, skirtą filmų gerbėjams susirinkti ir aptarti savo teorijas apie filmus. Tai vieta, kur vartotojai gali kurti temas, bendrauti tarpusavyje, komentuoti ir įvertinti kitų teorijas. Sistema taip pat skatina komunikacija tarp bendraminčių ir padeda atrasti naujas filmų rekomendacijas.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+--------------------------------------------
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Temų kūrimas:
 
-### `npm test`
+•	Vartotojai gali kurti naujas diskusijų temas apie filmus ar teorijas.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+•	Temas gali redaguoti kūrėjas, trinti netinkamas žinutes.
 
-### `npm run build`
+--------------------------------------------
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  Komentarų ir atsakymų sistema:
+  
+•	Kiekvienoje temoje vartotojai gali atsakyti į kitų komentarus ir dalintis savo mintimis apie teorijas.
+  Balsavimo ir reitingavimo sistema:
+  
+•	Vartotojai gali balsuoti už arba prieš teorijas ir komentarus, kad išryškėtų labiausiai palaikomos ar įdomiausios teorijos.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+--------------------------------------------
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Technologijų aprašymas:
 
-### `npm run eject`
+•	JWT bus naudojamas vartotojo autentifikacijai po prisijungimo. Tai leidžia saugiai ir efektyviai tvarkyti prisijungimo sesijas.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+•	React bus naudojamas dinamiškam ir interaktyviam vartotojo sąsajos kūrimui. React leidžia kurti komponentų struktūras, kurios efektyviai reaguoja į vartotojo veiksmus.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+• Back-end kūrybai bus naudojama .NET (C#)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+• Duomenų bazė bus kuriama su MySql
+>>>>>>> 84d7384a920c0cdaed80fd6bcda450d257406c0c
