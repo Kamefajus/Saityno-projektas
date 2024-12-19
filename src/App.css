@@ -1,38 +1,276 @@
-.App {
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif; /* Using a custom Google font */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #333; /* Default text color */
+}
+
+h1, h2 {
+  color: #0044cc;
+}
+
+/* Header */
+header {
+  background-color: #0044cc;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* Ensure positioning of logout button is relative to header */
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+}
+
+header nav ul li {
+  margin: 0 15px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.hamburger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout-btn:hover {
+  background-color: #e53935;
+}
+
+/* Content Section */
+main {
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.movie-item {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.movie-item h2 {
+  font-size: 20px;
+  color: #333;
+}
+
+.movie-item p {
+  color: #666;
+}
+
+.movie-item button {
+  background-color: #0044cc;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.movie-item button:hover {
+  background-color: #0033a0;
+}
+
+/* Create New Movie Button (Blue) */
+.create-movie-btn {
+  padding: 10px 20px;
+  background-color: #0044cc;  /* Match blue color */
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 5px;
+  display: block;  /* To make it appear as a block element */
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.create-movie-btn:hover {
+  background-color: #0033a0;
+}
+
+/* Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.movie-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;  /* Space between input fields */
+}
+
+.movie-form input,
+.movie-form textarea,
+.movie-form select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 16px;
+}
+
+.movie-form button {
+  background-color: #0044cc;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.movie-form button:hover {
+  background-color: #0033a0;
+}
+
+/* Close Modal Button */
+.close-modal-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;  /* Full-width to match other buttons */
+  transition: background-color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+  background-color: #e53935;
+}
+
+/* Footer */
+footer {
+  background-color: #f8f8f8;
+  padding: 20px;
   text-align: center;
+  font-size: 14px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+footer a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+footer a:hover {
+  color: #0044cc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    display: none; /* Hide menu items */
+  }
+
+  nav.active ul {
+    display: block; /* Show menu items when active */
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+
+  .movie-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Additional button and link styles */
+button,
+a {
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Specific styles for different button sections */
+.header-btn {
+  background-color: #0044cc;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.content-btn {
+  background-color: #ff9900;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer-btn {
+  background-color: #333;
+  color: white;
+}
+
+h1, h2 {
+  color: white; /* Change text color to white */
 }
