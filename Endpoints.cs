@@ -118,21 +118,22 @@ public static class Endpoints
         });
 
         
+postsGroups.MapPost("/posts", async (int movieId, CreateOrUpdatePostDto dto, ProjectDb dbContext, HttpContext httpContext) =>
+{
+    var movie = await dbContext.Movies.FindAsync(movieId);
+    if (movie == null)
+    {
+        return Results.NotFound();
+    }
 
-       postsGroups.MapPost("/posts", async (int movieId, CreateOrUpdatePostDto dto, ProjectDb dbContext) =>
-       {
-           var movie = await dbContext.Movies.FindAsync(movieId);
-           if (movie == null)
-           {
-               return Results.NotFound();
-           }
+    var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub); // Get UserId from the JWT
+    var post = new Post { Title = dto.Title, Body = dto.Body, CreatedAt = DateTimeOffset.UtcNow, movie = movie, UserId = userId };
 
-           var post = new Post { Title = dto.Title, Body = dto.Body, CreatedAt = DateTimeOffset.UtcNow, movie = movie, UserId = " " };
-           dbContext.Posts.Add(post);
-           await dbContext.SaveChangesAsync();
+    dbContext.Posts.Add(post);
+    await dbContext.SaveChangesAsync();
 
-           return Results.Created($"/api/movies/{movieId}/posts/{post.Id}", post.ToDto());
-       });
+    return Results.Created($"/api/movies/{movieId}/posts/{post.Id}", post.ToDto());
+});
 
         postsGroups.MapGet("/posts/{postId}", async (int movieId, int postId, ProjectDb dbContext) =>
         {
@@ -180,95 +181,119 @@ public static class Endpoints
     }
 
     public static void AddCommentsApi(this WebApplication app)
+{
+    var commentsGroups = app.MapGroup("/api/movies/{movieId}/posts/{postId}").AddFluentValidationAutoValidation();
+
+    // Get comments for a post
+    commentsGroups.MapGet("/comments", async (int movieId, int postId, ProjectDb dbContext) =>
     {
-        var commentsGroups = app.MapGroup("/api/movies/{movieId}/posts/{postId}").AddFluentValidationAutoValidation();
+        var post = await dbContext.Posts.Include(p => p.movie).FirstOrDefaultAsync(p => p.Id == postId && p.movie.Id == movieId);
 
-        commentsGroups.MapGet("/comments", async (int movieId, int postId, ProjectDb dbContext) =>
+        if (post == null)
         {
-            var posts = dbContext.Posts.Include(post => post.movie);
-            var post = await posts.FirstOrDefaultAsync(post => post.Id == postId && post.movie.Id == movieId);
+            return Results.NotFound();
+        }
 
-            if (post == null || post.movie.Id != movieId)
-            {
-                return Results.NotFound();
-            }
+        var comments = await dbContext.Comments.Where(c => c.Post.Id == postId).ToListAsync();
+        return Results.Ok(comments.Select(comment => comment.ToDto()));
+    });
 
-            var comments = await dbContext.Comments.Where(comment => comment.Post.Id == postId).ToListAsync();
-            return Results.Ok(comments.Select(comment => comment.ToDto()));
-        });
-
-        commentsGroups.MapPost("/comments", async (int movieId, int postId, CreateOrUpdateCommentDto dto, ProjectDb dbContext) =>
+    // Create a new comment on a post
+    commentsGroups.MapPost("/comments", async (int movieId, int postId, CreateOrUpdateCommentDto dto, ProjectDb dbContext, HttpContext httpContext) =>
+    {
+        // Find the post associated with the movie
+        var post = await dbContext.Posts.Include(p => p.movie).FirstOrDefaultAsync(p => p.Id == postId && p.movie.Id == movieId);
+        if (post == null)
         {
-           var posts = dbContext.Posts.Include(post => post.movie);
-           var post = await posts.FirstOrDefaultAsync(post => post.Id == postId && post.movie.Id == movieId);
+            return Results.NotFound(); // Post not found for the given movieId
+        }
 
-           if (post == null || post.movie.Id != movieId)
-           {
-               return Results.NotFound();
-           }
+        // Getting UserId from JWT (User is logged in)
+        var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-           var comment = new Comment
-           {
-               Content = dto.Content,
-               CreatedAt = DateTimeOffset.UtcNow,
-               UserId = " ",
-               Post = post
-               
-           };
-
-           dbContext.Comments.Add(comment);
-           await dbContext.SaveChangesAsync();
-
-           return Results.Created($"/api/movies/{movieId}/posts/{postId}/comments/{comment.Id}", comment.ToDto());
-        });
-
-        commentsGroups.MapGet("/comments/{commentId}", async (int movieId, int postId, int commentId, ProjectDb dbContext) =>
+        // Create and save the comment
+        var comment = new Comment
         {
-            var comment = await dbContext.Comments
-                .Include(comment => comment.Post)
-                .FirstOrDefaultAsync(comment => comment.Id == commentId && comment.Post.Id == postId && comment.Post.movie.Id == movieId);
+            Content = dto.Content,
+            CreatedAt = DateTimeOffset.UtcNow,
+            UserId = userId, // Assign the logged-in user's ID to the comment
+            Post = post // Associate the comment with the correct post
+        };
 
-            if (comment == null)
-            {
-                return Results.NotFound();
-            }
+        dbContext.Comments.Add(comment);
+        await dbContext.SaveChangesAsync();
 
-            return Results.Ok(comment.ToDto());
-        });
+        // Return the created comment with its DTO representation
+        return Results.Created($"/api/movies/{movieId}/posts/{postId}/comments/{comment.Id}", comment.ToDto());
+    });
 
-        commentsGroups.MapPut("/comments/{commentId}", async (int movieId, int postId, int commentId, CreateOrUpdateCommentDto dto, ProjectDb dbContext) =>
+    // Get a specific comment by ID
+    commentsGroups.MapGet("/comments/{commentId}", async (int movieId, int postId, int commentId, ProjectDb dbContext) =>
+    {
+        var comment = await dbContext.Comments
+            .Include(c => c.Post)
+            .ThenInclude(p => p.movie)
+            .FirstOrDefaultAsync(c => c.Id == commentId && c.Post.Id == postId && c.Post.movie.Id == movieId);
+
+        if (comment == null)
         {
-            var comment = await dbContext.Comments
-                .Include(comment => comment.Post)
-                .FirstOrDefaultAsync(comment => comment.Id == commentId && comment.Post.Id == postId && comment.Post.movie.Id == movieId);
+            return Results.NotFound();
+        }
 
-            if (comment == null)
-            {
-                return Results.NotFound();
-            }
+        return Results.Ok(comment.ToDto());
+    });
 
-            comment.Content = dto.Content;
-            dbContext.Comments.Update(comment);
-            await dbContext.SaveChangesAsync();
+    // Update a comment
+    commentsGroups.MapPut("/comments/{commentId}", async (int movieId, int postId, int commentId, CreateOrUpdateCommentDto dto, ProjectDb dbContext, HttpContext httpContext) =>
+    {
+        var comment = await dbContext.Comments
+            .Include(c => c.Post)
+            .ThenInclude(p => p.movie)
+            .FirstOrDefaultAsync(c => c.Id == commentId && c.Post.Id == postId && c.Post.movie.Id == movieId);
 
-            return Results.Ok(comment.ToDto());
-        });
-
-        commentsGroups.MapDelete("/comments/{commentId}", async (int movieId, int postId, int commentId, ProjectDb dbContext) =>
+        if (comment == null)
         {
-            var comment = await dbContext.Comments
-                .Include(comment => comment.Post)
-                .FirstOrDefaultAsync(comment => comment.Id == commentId && comment.Post.Id == postId && comment.Post.movie.Id == movieId);
+            return Results.NotFound();
+        }
 
-            if (comment == null)
-            {
-                return Results.NotFound();
-            }
+        // Ensure the user is the one who created the comment, or is an admin
+        var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        if (comment.UserId != userId && !httpContext.User.IsInRole(ForumRoles.Admin))
+        {
+            return Results.Forbid(); // User cannot edit comment if not the creator or admin
+        }
 
-            dbContext.Comments.Remove(comment);
-            await dbContext.SaveChangesAsync();
+        comment.Content = dto.Content;
+        dbContext.Comments.Update(comment);
+        await dbContext.SaveChangesAsync();
 
-            return Results.NoContent();
-        });
-    }
+        return Results.Ok(comment.ToDto());
+    });
+
+    // Delete a comment
+    commentsGroups.MapDelete("/comments/{commentId}", async (int movieId, int postId, int commentId, ProjectDb dbContext, HttpContext httpContext) =>
+    {
+        var comment = await dbContext.Comments
+            .Include(c => c.Post)
+            .ThenInclude(p => p.movie)
+            .FirstOrDefaultAsync(c => c.Id == commentId && c.Post.Id == postId && c.Post.movie.Id == movieId);
+
+        if (comment == null)
+        {
+            return Results.NotFound();
+        }
+
+        // Ensure the user is the one who created the comment, or is an admin
+        var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        if (comment.UserId != userId && !httpContext.User.IsInRole(ForumRoles.Admin))
+        {
+            return Results.Forbid(); // User cannot delete comment if not the creator or admin
+        }
+
+        dbContext.Comments.Remove(comment);
+        await dbContext.SaveChangesAsync();
+
+        return Results.NoContent();
+    });
+}
 }
