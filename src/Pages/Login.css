@@ -1,0 +1,90 @@
+/* General Styles for Login Component */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.login-container h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #0044cc;
+    margin-bottom: 30px;
+}
+
+/* Login Form */
+.login-form,
+.register-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-form button,
+.register-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0044cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button:hover,
+.register-form button:hover {
+    background-color: #0033a0;
+}
+
+/* Register Form Specific Styles (Optional) */
+.register-form {
+    margin-top: 20px;
+}
+
+.register-form h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.register-form input[type="email"] {
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    .login-form,
+    .register-form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .login-container h1 {
+        font-size: 28px;
+    }
+}
