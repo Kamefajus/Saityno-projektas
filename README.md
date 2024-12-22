@@ -121,16 +121,16 @@ POST /api/movies
 Sukurkite naują filmą.
 Užklausos kūnas:
 
-json
-Copy code
+ 
+ 
 {
   "title": "Filmo pavadinimas",
   "description": "Filmo aprašymas"
 }
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "title": "Filmo pavadinimas",
@@ -143,8 +143,8 @@ Gaukite konkretų filmą pagal ID.
 
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "title": "Filmo pavadinimas",
@@ -157,16 +157,16 @@ Atnaujinkite filmą pagal ID.
 
 Užklausos kūnas:
 
-json
-Copy code
+ 
+ 
 {
   "title": "Atnaujintas filmo pavadinimas",
   "description": "Atnaujintas filmo aprašymas"
 }
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "title": "Atnaujintas filmo pavadinimas",
@@ -182,8 +182,8 @@ Gaukite visus konkretaus filmo pranešimus.
 
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 [
   {
     "id": 1,
@@ -198,16 +198,16 @@ Sukurkite naują pranešimą filme.
 
 Užklausos kūnas:
 
-json
-Copy code
+ 
+ 
 {
   "title": "Naujo pranešimo pavadinimas",
   "body": "Naujo pranešimo turinys"
 }
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "title": "Naujo pranešimo pavadinimas",
@@ -220,8 +220,8 @@ Gaukite konkretų pranešimą filme.
 
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "title": "Pranešimo pavadinimas",
@@ -234,16 +234,16 @@ Atnaujinkite konkretų pranešimą filme.
 
 Užklausos kūnas:
 
-json
-Copy code
+ 
+ 
 {
   "title": "Atnaujintas pranešimo pavadinimas",
   "body": "Atnaujintas pranešimo turinys"
 }
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "title": "Atnaujintas pranešimo pavadinimas",
@@ -259,8 +259,8 @@ Gaukite visus konkretaus pranešimo komentarus.
 
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 [
   {
     "id": 1,
@@ -274,15 +274,15 @@ Sukurkite naują komentarą pranešime.
 
 Užklausos kūnas:
 
-json
-Copy code
+ 
+ 
 {
   "content": "Naujo komentaro turinys"
 }
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "content": "Naujo komentaro turinys",
@@ -294,8 +294,8 @@ Gaukite konkretų komentarą pranešime.
 
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "content": "Komentaro turinys",
@@ -307,15 +307,15 @@ Atnaujinkite konkretų komentarą pranešime.
 
 Užklausos kūnas:
 
-json
-Copy code
+ 
+ 
 {
   "content": "Atnaujintas komentaro turinys"
 }
 Atsakymas:
 
-json
-Copy code
+ 
+ 
 {
   "id": 1,
   "content": "Atnaujintas komentaro turinys",
