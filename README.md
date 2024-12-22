@@ -41,6 +41,26 @@ Sukurti naują filmą eskizas:
 
 --------------------------------------------
 
+Sukurtas prisijungimo ir registracijos langas:
+
+![image](https://github.com/user-attachments/assets/04934c32-1c50-4b0e-a8d7-79194caff939)
+
+Sukurtas pagrindinis langas:
+
+![image](https://github.com/user-attachments/assets/a7642cc8-cc09-4939-9720-b40bd36eb1e1)
+
+Filmų įrašų ir komentarų atvaizdavimo sukurtas langas:
+
+![image](https://github.com/user-attachments/assets/e6041fd2-eb3a-486f-a2cd-09a5246c92e6)
+
+Naujo filmo sukurimo langas:
+
+![image](https://github.com/user-attachments/assets/a52a12be-c848-4215-abe4-e8fc4b61645b)
+
+
+--------------------------------------------
+
+
 Temų kūrimas
 
 • Vartotojai gali kurti naujas diskusijų temas, skirtas filmų teorijoms.
