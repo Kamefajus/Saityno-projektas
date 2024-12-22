@@ -11,27 +11,33 @@ Sistemos tikslas – sukurti forumą, skirtą filmų gerbėjams susirinkti ir ap
 
 --------------------------------------------
 
+Struktūrinė diagrama:
 
-+------------------------------------------+
-|                  Frontend                |
-|              (React aplikacija)          |
-|                                          |
-|  - Temų kūrimas/redagavimas              |
-|  - Komentarų ir atsakymų valdymas        |
-|  - Balsavimo sistema                     |
-|  - Autentifikacija (JWT)                 |
-+------------------------------------------+
-                   |
-                   v
-+------------------------------------------+
-|                  Backend                 |
-|          (.NET API su C#)                |
-|                                          |
-|  - Vartotojų autentifikacija             |
-|  - CRUD operacijos temoms ir komentarams |
-|  - Balsavimo logika                      |
-|  - Duomenų saugykla (MySQL)              |
-+------------------------------------------+
+
+
+![image](https://github.com/user-attachments/assets/52839e49-3e4b-4e9e-a566-0138403cb884)
+
+
+
+--------------------------------------------
+
+
+Pagrindinio lango eskizas:
+
+![image](https://github.com/user-attachments/assets/fe0b1a63-a591-454a-84fb-81455c1e9f8a)
+
+Prisijungimo ir registracijos lango eskizas:
+
+![image](https://github.com/user-attachments/assets/d111c853-900b-42a6-97d3-288b5100626b)
+
+Filmų įrašų ir komentarų atvaizdavimo eskizas:
+
+![image](https://github.com/user-attachments/assets/80f946d3-f607-48a9-b2dd-5d3ca426c1ed)
+
+Sukurti naują filmą eskizas:
+
+![image](https://github.com/user-attachments/assets/a4d07810-3813-4f1b-bf63-324326ef3ee6)
+
 
 --------------------------------------------
 
@@ -46,6 +52,7 @@ Temų kūrimas
 --------------------------------------------
 
 Komentarai ir atsakymai
+
 • Kiekvienoje temoje vartotojai gali:
 
 • Pateikti savo teorijas ir mintis.
@@ -67,93 +74,236 @@ Technologijų aprašymas:
 
 --------------------------------------------
 
-GET /api/topics
-Gaukite visas sukurtas temas.
+GET /api/test
+Gaukite testinius duomenis iš duomenų bazės.
+[
+  {
+    "id": 1,
+    "title": "Filmo pavadinimas",
+    "description": "Filmo aprašymas",
+    "createdAt": "2023-12-01T12:00:00Z",
+    "userId": "user1"
+  }
+]
+
+GET /api/movies
+Gaukite visų filmų sąrašą.
+[
+  {
+    "id": 1,
+    "title": "Filmo pavadinimas",
+    "description": "Filmo aprašymas",
+    "createdAt": "2023-12-01T12:00:00Z",
+    "userId": "user1"
+  }
+]
+POST /api/movies
+Sukurkite naują filmą.
+Užklausos kūnas:
+
+json
+Copy code
+{
+  "title": "Filmo pavadinimas",
+  "description": "Filmo aprašymas"
+}
+Atsakymas:
+
+json
+Copy code
+{
+  "id": 1,
+  "title": "Filmo pavadinimas",
+  "description": "Filmo aprašymas",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
+}
+GET /api/movies/{movieId}
+Gaukite konkretų filmą pagal ID.
 
 Atsakymas:
+
+json
+Copy code
+{
+  "id": 1,
+  "title": "Filmo pavadinimas",
+  "description": "Filmo aprašymas",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
+}
+PUT /api/movies/{movieId}
+Atnaujinkite filmą pagal ID.
+
+Užklausos kūnas:
+
+json
+Copy code
+{
+  "title": "Atnaujintas filmo pavadinimas",
+  "description": "Atnaujintas filmo aprašymas"
+}
+Atsakymas:
+
+json
+Copy code
+{
+  "id": 1,
+  "title": "Atnaujintas filmo pavadinimas",
+  "description": "Atnaujintas filmo aprašymas",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
+}
+DELETE /api/movies/{movieId}
+Pašalinkite filmą pagal ID.
+
+GET /api/movies/{movieId}/posts
+Gaukite visus konkretaus filmo pranešimus.
+
+Atsakymas:
+
 json
 Copy code
 [
   {
     "id": 1,
-    "title": "Filmų teorija apie XYZ",
-    "content": "Turinys apie teoriją",
-    "userId": 1
+    "title": "Pranešimo pavadinimas",
+    "body": "Pranešimo turinys",
+    "createdAt": "2023-12-01T12:00:00Z",
+    "userId": "user1"
   }
 ]
-POST /api/topics
-Sukurkite naują temą.
+POST /api/movies/{movieId}/posts
+Sukurkite naują pranešimą filme.
 
 Užklausos kūnas:
+
 json
 Copy code
 {
-  "title": "Nauja teorija",
-  "content": "Teorijos turinys",
-  "userId": 1
+  "title": "Naujo pranešimo pavadinimas",
+  "body": "Naujo pranešimo turinys"
 }
 Atsakymas:
+
 json
 Copy code
 {
   "id": 1,
-  "title": "Nauja teorija",
-  "content": "Teorijos turinys"
+  "title": "Naujo pranešimo pavadinimas",
+  "body": "Naujo pranešimo turinys",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
 }
-PUT /api/topics/{id}
-Redaguokite esamą temą.
+GET /api/movies/{movieId}/posts/{postId}
+Gaukite konkretų pranešimą filme.
 
-Užklausos kūnas:
-json
-Copy code
-{
-  "title": "Atnaujinta teorija",
-  "content": "Atnaujintas turinys"
-}
 Atsakymas:
+
 json
 Copy code
 {
   "id": 1,
-  "title": "Atnaujinta teorija",
-  "content": "Atnaujintas turinys"
+  "title": "Pranešimo pavadinimas",
+  "body": "Pranešimo turinys",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
 }
-DELETE /api/topics/{id}
-Pašalinkite temą.
+PUT /api/movies/{movieId}/posts/{postId}
+Atnaujinkite konkretų pranešimą filme.
 
-Atsakymas: 204 No Content
-Komentarų API
+Užklausos kūnas:
 
-GET /api/topics/{topicId}/comments
-Gaukite visus komentarus apie konkrečią temą.
+json
+Copy code
+{
+  "title": "Atnaujintas pranešimo pavadinimas",
+  "body": "Atnaujintas pranešimo turinys"
+}
+Atsakymas:
+
+json
+Copy code
+{
+  "id": 1,
+  "title": "Atnaujintas pranešimo pavadinimas",
+  "body": "Atnaujintas pranešimo turinys",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
+}
+DELETE /api/movies/{movieId}/posts/{postId}
+Pašalinkite konkretų pranešimą filme.
+
+GET /api/movies/{movieId}/posts/{postId}/comments
+Gaukite visus konkretaus pranešimo komentarus.
 
 Atsakymas:
+
 json
 Copy code
 [
   {
     "id": 1,
     "content": "Komentaro turinys",
-    "userId": 2
+    "createdAt": "2023-12-01T12:00:00Z",
+    "userId": "user1"
   }
 ]
-POST /api/topics/{topicId}/comments
-Pridėkite naują komentarą temai.
+POST /api/movies/{movieId}/posts/{postId}/comments
+Sukurkite naują komentarą pranešime.
 
 Užklausos kūnas:
+
 json
 Copy code
 {
-  "content": "Mano komentaras apie teoriją",
-  "userId": 2
+  "content": "Naujo komentaro turinys"
 }
 Atsakymas:
+
 json
 Copy code
 {
   "id": 1,
-  "content": "Mano komentaras apie teoriją"
+  "content": "Naujo komentaro turinys",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
 }
+GET /api/movies/{movieId}/posts/{postId}/comments/{commentId}
+Gaukite konkretų komentarą pranešime.
+
+Atsakymas:
+
+json
+Copy code
+{
+  "id": 1,
+  "content": "Komentaro turinys",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
+}
+PUT /api/movies/{movieId}/posts/{postId}/comments/{commentId}
+Atnaujinkite konkretų komentarą pranešime.
+
+Užklausos kūnas:
+
+json
+Copy code
+{
+  "content": "Atnaujintas komentaro turinys"
+}
+Atsakymas:
+
+json
+Copy code
+{
+  "id": 1,
+  "content": "Atnaujintas komentaro turinys",
+  "createdAt": "2023-12-01T12:00:00Z",
+  "userId": "user1"
+}
+DELETE /api/movies/{movieId}/posts/{postId}/comments/{commentId}
+Pašalinkite konkretų komentarą pranešime.
 
 --------------------------------------------
 
